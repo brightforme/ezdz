@@ -20,6 +20,8 @@ module.exports = function(grunt) {
             ' // ----------------------------------------------------------------------------',
             ' // Copyright (C) <%= grunt.template.today("yyyy") %> Jay Salvat',
             ' // http://jaysalvat.com/',
+            ' // Fixes by Bright',
+            ' // http://brightfor.me/',
             ' // ---------------------------------------------------------------------------*/',
             '\n'
         ].join('\n'),
@@ -71,7 +73,7 @@ module.exports = function(grunt) {
                     banner: '<%= banner %>',
                     report: 'min',
                     mangle: true,
-                    compress: true
+                    compress: {}
                 },
                 src: 'src/jquery.ezdz.js',
                 dest: 'dist/jquery.ezdz.min.js'

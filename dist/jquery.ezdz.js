@@ -1,11 +1,13 @@
  /* ----------------------------------------------------------------------------
  // Ezdz [izy-dizy]
- // v0.4.3 - released 2014-12-16 11:29
+ // v0.4.3 - released 2015-10-01 11:50
  // Licensed under the MIT license.
  // https://github.com/jaysalvat/ezdz
  // ----------------------------------------------------------------------------
- // Copyright (C) 2014 Jay Salvat
+ // Copyright (C) 2015 Jay Salvat
  // http://jaysalvat.com/
+ // Fixes by Bright
+ // http://brightfor.me/
  // ---------------------------------------------------------------------------*/
 
 /* global define: true, require: true, jQuery */
@@ -209,94 +211,17 @@
                     return false;
                 }
 
-                // Read the added file
-                var reader = new FileReader(file);
+                $ezdz.addClass(settings.classes.accept);
 
-                reader.readAsDataURL(file);
-
-                reader.onload = function(e) {
-                    var img = new Image(),
-                        isImage;
-
-                    file.data = e.target.result;
-                    img.src   = file.data;
-
-                    setTimeout(function() {
-                        isImage = (img.width && img.height);
-
-                        // Validator
-                        if (settings.validators.maxSize && file.size > settings.validators.maxSize) {
-                            valid = false;
-                            errors.maxSize = true;
-                        }
-
-                        if (isImage) {
-                            file.width  = img.width;
-                            file.height = img.height;
-
-                            if (settings.validators.width && img.width !== settings.validators.width) {
-                                valid = false;
-                                errors.width = true;
-                            }
-
-                            if (settings.validators.maxWidth && img.width > settings.validators.maxWidth) {
-                                valid = false;
-                                errors.maxWidth = true;
-                            }
-
-                            if (settings.validators.minWidth && img.width < settings.validators.minWidth) {
-                                valid = false;
-                                errors.minWidth = true;
-                            }
-
-                            if (settings.validators.height && img.height !== settings.validators.height) {
-                                valid = false;
-                                errors.height = true;
-                            }
-
-                            if (settings.validators.maxHeight && img.height > settings.validators.maxHeight) {
-                                valid = false;
-                                errors.maxHeight = true;
-                            }
-
-                            if (settings.validators.minHeight && img.height < settings.validators.minHeight) {
-                                valid = false;
-                                errors.minHeight = true;
-                            }
-                        }
-
-                        // The file is validated, so added to input
-                        if (valid === true) {
-                            $ezdz.find('img').remove();
-
-                            if (isImage && settings.previewImage === true) {
-                                $ezdz.find('div').html($(img).fadeIn());
-                            } else {
-                                $ezdz.find('div').html('<span>' + formatted + '</span>');
-                            }
-
-                            $ezdz.addClass(settings.classes.accept);
-
-                            // Trigger the accept callback
-                            if ($.isFunction(settings.accept)) {
-                                 settings.accept.apply($input, [ file ]);
-                            }
-                        // The file is invalidated, so rejected
-                        } else {
-                            $input.val('');
-
-                            $ezdz.addClass(settings.classes.reject);
-
-                            // Trigger the reject callback
-                            if ($.isFunction(settings.reject)) {
-                                 settings.reject.apply($input, [ file, errors ]);
-                            }
-                        }
-                    }, 250);
-                };
+                // Trigger the accept callback
+                if ($.isFunction(settings.accept)) {
+                     var acceptedMessage = 'File was uploaded.';
+                     $ezdz.find('div').html('<span>' + formatted + '<br/>' + acceptedMessage + '</span>');
+                     settings.accept.apply($input, [ file ]);
+                }
             });
         };
-
+        
         init();
     };
 

@@ -1,11 +1,13 @@
  /* ----------------------------------------------------------------------------
  // Ezdz [izy-dizy]
- // v0.4.3 - released 2014-12-16 11:29
+ // v0.4.3 - released 2015-10-01 11:50
  // Licensed under the MIT license.
  // https://github.com/jaysalvat/ezdz
  // ----------------------------------------------------------------------------
- // Copyright (C) 2014 Jay Salvat
+ // Copyright (C) 2015 Jay Salvat
  // http://jaysalvat.com/
+ // Fixes by Bright
+ // http://brightfor.me/
  // ---------------------------------------------------------------------------*/
 
 .ezdz-dropzone {
@@ -35,7 +37,7 @@
             max-width: 90%;
             vertical-align: middle;
             padding: 4%;
-            line-height: 10px;
+            line-height: 15px;
             display: inline-block;
             text-overflow: ellipsis;
             white-space: nowrap;
